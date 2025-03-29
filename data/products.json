@@ -1,0 +1,61 @@
+{
+    "lastUpdate": "2024-03-21T00:00:00Z",
+    "products": [
+        {
+            "id": "1",
+            "title": "Samsung 970 EVO Plus NVMe M.2 SSD",
+            "type": "SSD",
+            "capacity": 1000,
+            "price": 699.00,
+            "pricePerTB": 699.00,
+            "warranty": "5 years",
+            "formFactor": "M.2 2280",
+            "technology": "NVMe PCIe 3.0 x4",
+            "condition": "New",
+            "url": "https://www.amazon.com/dp/B07MFZY2F2",
+            "imageUrl": "https://example.com/samsung-970-evo-plus.jpg"
+        },
+        {
+            "id": "2",
+            "title": "Western Digital Blue 3D NAND SATA SSD",
+            "type": "SSD",
+            "capacity": 1000,
+            "price": 599.00,
+            "pricePerTB": 599.00,
+            "warranty": "3 years",
+            "formFactor": "2.5\"",
+            "technology": "SATA III",
+            "condition": "New",
+            "url": "https://www.amazon.com/dp/B073SBZ8YH",
+            "imageUrl": "https://example.com/wd-blue-ssd.jpg"
+        },
+        {
+            "id": "3",
+            "title": "Seagate IronWolf Pro NAS HDD",
+            "type": "HDD",
+            "capacity": 4000,
+            "price": 1299.00,
+            "pricePerTB": 324.75,
+            "warranty": "5 years",
+            "formFactor": "3.5\"",
+            "technology": "SATA III",
+            "condition": "New",
+            "url": "https://www.amazon.com/dp/B07H2RR55Q",
+            "imageUrl": "https://example.com/seagate-ironwolf.jpg"
+        },
+        {
+            "id": "4",
+            "title": "Crucial P3 NVMe M.2 SSD",
+            "type": "SSD",
+            "capacity": 2000,
+            "price": 999.00,
+            "pricePerTB": 499.50,
+            "warranty": "5 years",
+            "formFactor": "M.2 2280",
+            "technology": "NVMe PCIe 3.0 x4",
+            "condition": "New",
+            "url": "https://www.amazon.com/dp/B0B25P44CL",
+            "imageUrl": "https://example.com/crucial-p3.jpg"
+        }
+    ]
+} 

@@ -1,0 +1,80 @@
+{
+    "en": {
+        "title": "Hard Drive Price Comparison",
+        "filters": {
+            "allTypes": "All Types",
+            "allCapacities": "All Capacities",
+            "sortBy": "Sort By"
+        },
+        "table": {
+            "productName": "Product Name",
+            "pricePerTB": "Price per TB",
+            "price": "Price",
+            "capacity": "Capacity",
+            "warranty": "Warranty",
+            "formFactor": "Form Factor",
+            "technology": "Technology",
+            "condition": "Condition",
+            "action": "Action",
+            "viewDetails": "View Details"
+        },
+        "types": {
+            "SSD": "SSD",
+            "HDD": "HDD"
+        },
+        "capacities": {
+            "256": "256GB",
+            "512": "512GB",
+            "1000": "1TB",
+            "2000": "2TB",
+            "4000": "4TB"
+        },
+        "sort": {
+            "priceAsc": "Price: Low to High",
+            "priceDesc": "Price: High to Low",
+            "pricePerTBAsc": "Price per TB: Low to High",
+            "pricePerTBDesc": "Price per TB: High to Low",
+            "capacityAsc": "Capacity: Small to Large",
+            "capacityDesc": "Capacity: Large to Small"
+        }
+    },
+    "zh": {
+        "title": "硬盘价格对比",
+        "filters": {
+            "allTypes": "所有类型",
+            "allCapacities": "所有容量",
+            "sortBy": "排序方式"
+        },
+        "table": {
+            "productName": "产品名称",
+            "pricePerTB": "每TB价格",
+            "price": "价格",
+            "capacity": "容量",
+            "warranty": "保修期",
+            "formFactor": "外形尺寸",
+            "technology": "技术规格",
+            "condition": "状态",
+            "action": "操作",
+            "viewDetails": "查看详情"
+        },
+        "types": {
+            "SSD": "固态硬盘",
+            "HDD": "机械硬盘"
+        },
+        "capacities": {
+            "256": "256GB",
+            "512": "512GB",
+            "1000": "1TB",
+            "2000": "2TB",
+            "4000": "4TB"
+        },
+        "sort": {
+            "priceAsc": "价格从低到高",
+            "priceDesc": "价格从高到低",
+            "pricePerTBAsc": "每TB价格从低到高",
+            "pricePerTBDesc": "每TB价格从高到低",
+            "capacityAsc": "容量从小到大",
+            "capacityDesc": "容量从大到小"
+        }
+    }
+} 
