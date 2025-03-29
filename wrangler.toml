@@ -1,28 +1,5 @@
-name = "diskprices-worker"
-main = "src/worker/index.ts"
+name = "diskprices"
 compatibility_date = "2024-03-29"
 
-[triggers]
-crons = ["0 */6 * * *"] # 每6小时运行一次
-
-[[kv_namespaces]]
-binding = "DISK_PRICES"
-id = "your-kv-namespace-id"
-preview_id = "your-preview-kv-namespace-id"
-
-[vars]
-ENVIRONMENT = "production"
-AMAZON_PARTNER_TAG = "your-partner-tag"
-
-# 开发环境配置
-[env.development]
-name = "diskprices-worker-dev"
-vars = { ENVIRONMENT = "development", AMAZON_PARTNER_TAG = "your-partner-tag-dev" }
-
-# 生产环境配置
-[env.production]
-vars = { ENVIRONMENT = "production", AMAZON_PARTNER_TAG = "your-partner-tag-prod" }
-
 [site]
-bucket = "./dist"
-entry-point = "src/worker" 
+bucket = "./dist" 
