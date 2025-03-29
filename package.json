@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler publish",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean && mkdir -p dist",
     "build": "npm run build:frontend && npm run build:worker",
     "build:frontend": "cp -r src/frontend/* dist/",
     "build:worker": "webpack --config webpack.worker.js"
@@ -19,6 +21,7 @@
     "typescript": "^5.0.0",
     "webpack": "^5.0.0",
     "webpack-cli": "^5.0.0",
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.0.0",
+    "ts-loader": "^9.0.0"
   }
 } 
