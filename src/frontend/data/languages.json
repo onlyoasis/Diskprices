@@ -1,0 +1,74 @@
+{
+  "zh": {
+    "title": "硬盘价格比较",
+    "filters": {
+      "type": "类型",
+      "capacity": "容量",
+      "formFactor": "规格"
+    },
+    "table": {
+      "product": "产品",
+      "type": "类型",
+      "capacity": "容量",
+      "price": "价格",
+      "pricePerTB": "每TB价格",
+      "warranty": "保修",
+      "formFactor": "规格",
+      "technology": "技术",
+      "condition": "状态"
+    },
+    "types": {
+      "all": "全部",
+      "ssd": "SSD",
+      "hdd": "HDD"
+    },
+    "capacities": {
+      "all": "全部",
+      "small": "小于1TB",
+      "medium": "1-4TB",
+      "large": "大于4TB"
+    },
+    "formFactors": {
+      "all": "全部",
+      "2.5": "2.5英寸",
+      "3.5": "3.5英寸",
+      "m2": "M.2"
+    }
+  },
+  "en": {
+    "title": "Hard Drive Price Comparison",
+    "filters": {
+      "type": "Type",
+      "capacity": "Capacity",
+      "formFactor": "Form Factor"
+    },
+    "table": {
+      "product": "Product",
+      "type": "Type",
+      "capacity": "Capacity",
+      "price": "Price",
+      "pricePerTB": "Price/TB",
+      "warranty": "Warranty",
+      "formFactor": "Form Factor",
+      "technology": "Technology",
+      "condition": "Condition"
+    },
+    "types": {
+      "all": "All",
+      "ssd": "SSD",
+      "hdd": "HDD"
+    },
+    "capacities": {
+      "all": "All",
+      "small": "Less than 1TB",
+      "medium": "1-4TB",
+      "large": "More than 4TB"
+    },
+    "formFactors": {
+      "all": "All",
+      "2.5": "2.5\"",
+      "3.5": "3.5\"",
+      "m2": "M.2"
+    }
+  }
+} 
