@@ -4,7 +4,7 @@
   "description": "Hard Drive Price Comparison Website",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler deploy --assets=./dist",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean && mkdir -p dist",
     "build": "npm run build:frontend",

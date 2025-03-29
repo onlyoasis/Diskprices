@@ -1,5 +1,5 @@
 name = "diskprices"
 compatibility_date = "2024-03-29"
 
-[pages]
-bucket = "./dist" 
+[assets]
+directory = "./dist" 
