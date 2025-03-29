@@ -12,15 +12,16 @@ preview_id = "your-preview-kv-namespace-id"
 
 [vars]
 ENVIRONMENT = "production"
+AMAZON_PARTNER_TAG = "your-partner-tag"
 
 # 开发环境配置
 [env.development]
 name = "diskprices-worker-dev"
-vars = { ENVIRONMENT = "development" }
+vars = { ENVIRONMENT = "development", AMAZON_PARTNER_TAG = "your-partner-tag-dev" }
 
 # 生产环境配置
 [env.production]
-vars = { ENVIRONMENT = "production" }
+vars = { ENVIRONMENT = "production", AMAZON_PARTNER_TAG = "your-partner-tag-prod" }
 
 [site]
 bucket = "./dist"

@@ -1,39 +1,77 @@
-import { ProductAdvertisingAPIClient } from '@aws-sdk/client-product-advertising-api';
+import { DefaultApi, GetItemsRequest, SearchItemsRequest } from 'paapi5-nodejs-sdk';
 import { Product } from './types';
 
 // Amazon API 客户端配置
-const client = new ProductAdvertisingAPIClient({
+const client = new DefaultApi({
+  accessKey: process.env.AMAZON_ACCESS_KEY_ID || '',
+  secretKey: process.env.AMAZON_SECRET_ACCESS_KEY || '',
   region: 'us-east-1',
-  credentials: {
-    accessKeyId: process.env.AMAZON_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY || '',
-  },
+  partnerTag: process.env.AMAZON_PARTNER_TAG || ''
 });
 
 // 获取硬盘产品数据
 export async function fetchAmazonProducts(): Promise<Product[]> {
   try {
-    // TODO: 实现 Amazon API 调用
-    // 这里是示例数据，实际实现时需要替换为真实的 API 调用
-    return [
-      {
-        id: '1',
-        title: 'Samsung 970 EVO Plus NVMe M.2 SSD',
-        type: 'SSD',
-        capacity: 1000,
-        price: 699.00,
-        pricePerTB: 699.00,
-        warranty: '5 years',
-        formFactor: 'M.2 2280',
-        technology: 'NVMe PCIe 3.0 x4',
-        condition: 'New',
-        url: 'https://www.amazon.com/dp/B07MFZY2F2',
-        imageUrl: 'https://example.com/samsung-970-evo-plus.jpg'
-      },
-      // ... 其他产品数据
-    ];
+    const searchRequest = new SearchItemsRequest({
+      Keywords: 'internal hard drive',
+      SearchIndex: 'Electronics',
+      ItemCount: 10,
+      Resources: [
+        'ItemInfo.Title',
+        'Offers.Listings.Price',
+        'Images.Primary.Large'
+      ]
+    });
+
+    const response = await client.searchItems(searchRequest);
+    if (!response.SearchResult?.Items) {
+      return [];
+    }
+
+    return response.SearchResult.Items.map(item => ({
+      id: item.ASIN || '',
+      title: item.ItemInfo?.Title?.DisplayValue || '',
+      type: item.ItemInfo?.Title?.DisplayValue?.includes('SSD') ? 'SSD' : 'HDD',
+      capacity: parseCapacity(item.ItemInfo?.Title?.DisplayValue || ''),
+      price: item.Offers?.Listings?.[0]?.Price?.Amount || 0,
+      pricePerTB: calculatePricePerTB(
+        item.Offers?.Listings?.[0]?.Price?.Amount || 0,
+        parseCapacity(item.ItemInfo?.Title?.DisplayValue || '')
+      ),
+      warranty: '制造商保修',
+      formFactor: parseFormFactor(item.ItemInfo?.Title?.DisplayValue || ''),
+      technology: item.ItemInfo?.Title?.DisplayValue?.includes('SSD') ? 'SATA SSD' : 'SATA HDD',
+      condition: 'New',
+      url: item.DetailPageURL || '',
+      imageUrl: item.Images?.Primary?.Large?.URL || ''
+    }));
   } catch (error) {
     console.error('Error fetching Amazon products:', error);
     throw error;
   }
+}
+
+// 解析容量（GB）
+function parseCapacity(title: string): number {
+  const match = title.match(/(\d+)\s*(TB|GB)/i);
+  if (!match) return 0;
+  
+  const [, size, unit] = match;
+  return unit.toLowerCase() === 'tb' ? 
+    parseInt(size) * 1000 : 
+    parseInt(size);
+}
+
+// 计算每 TB 价格
+function calculatePricePerTB(price: number, capacityGB: number): number {
+  if (capacityGB <= 0) return 0;
+  return (price / (capacityGB / 1000));
+}
+
+// 解析硬盘规格
+function parseFormFactor(title: string): string {
+  if (title.includes('2.5')) return '2.5"';
+  if (title.includes('3.5')) return '3.5"';
+  if (title.includes('M.2')) return 'M.2';
+  return '3.5"'; // 默认值
 } 

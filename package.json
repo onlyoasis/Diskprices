@@ -10,11 +10,12 @@
     "build:worker": "webpack --config webpack.worker.js"
   },
   "dependencies": {
-    "@aws-sdk/client-product-advertising-api": "^3.0.0",
+    "paapi5-nodejs-sdk": "^1.1.0",
     "itty-router": "^3.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.0.0",
+    "@types/node": "^20.0.0",
     "typescript": "^5.0.0",
     "webpack": "^5.0.0",
     "webpack-cli": "^5.0.0",
