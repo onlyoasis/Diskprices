@@ -9,6 +9,7 @@ module.exports = {
   mode: process.env.NODE_ENV || 'production',
   resolve: {
     extensions: ['.ts', '.js'],
+    preferRelative: true,
     fallback: {
       "http": false,
       "https": false,

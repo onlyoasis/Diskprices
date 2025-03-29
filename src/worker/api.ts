@@ -1,18 +1,18 @@
-import { DefaultApi, GetItemsRequest, SearchItemsRequest } from 'paapi5-nodejs-sdk';
+import { ProductAdvertisingAPIClient } from 'amazon-paapi';
 import { Product } from './types';
 
 // Amazon API 客户端配置
-const client = new DefaultApi({
+const client = new ProductAdvertisingAPIClient({
   accessKey: process.env.AMAZON_ACCESS_KEY_ID || '',
   secretKey: process.env.AMAZON_SECRET_ACCESS_KEY || '',
-  region: 'us-east-1',
-  partnerTag: process.env.AMAZON_PARTNER_TAG || ''
+  partnerTag: process.env.AMAZON_PARTNER_TAG || '',
+  region: 'us-east-1'
 });
 
 // 获取硬盘产品数据
 export async function fetchAmazonProducts(): Promise<Product[]> {
   try {
-    const searchRequest = new SearchItemsRequest({
+    const response = await client.searchItems({
       Keywords: 'internal hard drive',
       SearchIndex: 'Electronics',
       ItemCount: 10,
@@ -23,7 +23,6 @@ export async function fetchAmazonProducts(): Promise<Product[]> {
       ]
     });
 
-    const response = await client.searchItems(searchRequest);
     if (!response.SearchResult?.Items) {
       return [];
     }
