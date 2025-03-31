@@ -3,106 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hard Drive Price Comparison - Compare SSD & HDD Prices | DiskPrices</title>
-    <meta name="description" content="Compare prices of SSDs and HDDs from Amazon. Find the best deals on storage devices, including NVMe, SATA SSDs, and HDDs. Price per TB comparison and real-time updates.">
-    <meta name="keywords" content="hard drive prices, SSD prices, HDD prices, storage comparison, NVMe SSD, SATA SSD, price per TB, storage deals, computer storage, disk prices">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com/">
-    <meta property="og:title" content="Hard Drive Price Comparison - Compare SSD & HDD Prices">
-    <meta property="og:description" content="Compare prices of SSDs and HDDs from Amazon. Find the best deals on storage devices with price per TB comparison.">
-    <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourdomain.com/">
-    <meta property="twitter:title" content="Hard Drive Price Comparison - Compare SSD & HDD Prices">
-    <meta property="twitter:description" content="Compare prices of SSDs and HDDs from Amazon. Find the best deals on storage devices with price per TB comparison.">
-    <meta property="twitter:image" content="https://yourdomain.com/images/twitter-image.jpg">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://yourdomain.com/">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
+    <title>Storage Device Price Comparison</title>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- 结构化数据 -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "DiskPrices - Hard Drive Price Comparison",
-        "description": "Compare prices of SSDs and HDDs from Amazon. Find the best deals on storage devices.",
-        "url": "https://yourdomain.com",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://yourdomain.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="header-top">
-                <h1>Hard Drive Price Comparison</h1>
-                <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en">EN</button>
-                    <button class="lang-btn" data-lang="zh">中文</button>
-                </div>
-            </div>
-            <div class="filters">
-                <select id="typeFilter">
-                    <option value="">All Types</option>
-                    <option value="SSD">SSD</option>
-                    <option value="HDD">HDD</option>
-                </select>
-                <select id="capacityFilter">
-                    <option value="">All Capacities</option>
-                    <option value="256">256GB</option>
-                    <option value="512">512GB</option>
-                    <option value="1000">1TB</option>
-                    <option value="2000">2TB</option>
-                    <option value="4000">4TB</option>
-                </select>
-                <select id="sortBy">
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="pricePerTB-asc">Price per TB: Low to High</option>
-                    <option value="pricePerTB-desc">Price per TB: High to Low</option>
-                    <option value="capacity-asc">Capacity: Small to Large</option>
-                    <option value="capacity-desc">Capacity: Large to Small</option>
-                </select>
+            <h1>Storage Device Price Comparison</h1>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
             </div>
         </header>
-        
-        <main>
-            <div class="table-container">
-                <table id="priceTable">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Price per TB</th>
-                            <th>Price</th>
-                            <th>Capacity</th>
-                            <th>Warranty</th>
-                            <th>Form Factor</th>
-                            <th>Technology</th>
-                            <th>Condition</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="priceTableBody">
-                        <!-- 数据将通过 JavaScript 动态加载 -->
-                    </tbody>
-                </table>
-            </div>
-        </main>
+
+        <div class="filters">
+            <select id="typeFilter" aria-label="Filter by type">
+                <option value="">All Types</option>
+                <option value="Tape">Tape</option>
+                <option value="LTO-9">LTO-9</option>
+                <option value="LTO-8">LTO-8</option>
+                <option value="LTO-6">LTO-6</option>
+            </select>
+            <select id="capacityFilter" aria-label="Filter by capacity">
+                <option value="">All Capacities</option>
+                <option value="18 TB">18 TB</option>
+                <option value="12 TB">12 TB</option>
+                <option value="2.5 TB">2.5 TB</option>
+                <option value="1.4 GB">1.4 GB</option>
+                <option value="1 GB">1 GB</option>
+                <option value="650 MB">650 MB</option>
+            </select>
+            <select id="sortBy" aria-label="Sort by">
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="pricePerTB-asc">Price per TB (Low to High)</option>
+                <option value="pricePerTB-desc">Price per TB (High to Low)</option>
+                <option value="capacity-asc">Capacity (Low to High)</option>
+                <option value="capacity-desc">Capacity (High to Low)</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="priceTable">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price per TB</th>
+                        <th>Price</th>
+                        <th>Capacity</th>
+                        <th>Warranty</th>
+                        <th>Form Factor</th>
+                        <th>Technology</th>
+                        <th>Condition</th>
+                    </tr>
+                </thead>
+                <tbody id="priceTableBody"></tbody>
+            </table>
+        </div>
 
         <footer>
             <p>Last updated: <span id="lastUpdate"></span></p>

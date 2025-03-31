@@ -26,12 +26,13 @@ async function init() {
             fetch('data/languages.json')
         ]);
         
-        products = await productsResponse.json();
+        const productsData = await productsResponse.json();
         translations = await translationsResponse.json();
-        filteredProducts = [...products.products];
+        products = productsData.products;
+        filteredProducts = [...products];
         
         // 更新最后更新时间
-        updateLastUpdateTime(products.lastUpdate);
+        updateLastUpdateTime(productsData.lastUpdate);
         
         // 设置语言切换事件监听器
         langButtons.forEach(btn => {
@@ -59,6 +60,29 @@ async function init() {
     }
 }
 
+// 渲染表格
+function renderTable() {
+    priceTableBody.innerHTML = '';
+    
+    filteredProducts.forEach(product => {
+        const row = document.createElement('tr');
+        
+        // 添加所有列，优化容量显示格式
+        row.innerHTML = `
+            <td><a href="${product.url}" class="product-link" target="_blank" rel="noopener noreferrer" title="${product.title}">${product.title}</a></td>
+            <td class="price">$${product.pricePerTB.toFixed(2)}</td>
+            <td class="price">$${product.price.toFixed(2)}</td>
+            <td class="capacity">${product.capacity}</td>
+            <td>${product.warranty}</td>
+            <td>${product.formFactor}</td>
+            <td>${product.technology}</td>
+            <td>${product.condition}</td>
+        `;
+        
+        priceTableBody.appendChild(row);
+    });
+}
+
 // 更新最后更新时间
 function updateLastUpdateTime(timestamp) {
     const date = new Date(timestamp);
@@ -84,7 +108,7 @@ function addProductStructuredData() {
             "item": {
                 "@type": "Product",
                 "name": product.title,
-                "description": `${product.capacity}GB ${product.type} ${product.technology}`,
+                "description": `${product.capacity} ${product.type} ${product.technology}`,
                 "brand": {
                     "@type": "Brand",
                     "name": product.title.split(' ')[0]
@@ -92,7 +116,7 @@ function addProductStructuredData() {
                 "offers": {
                     "@type": "Offer",
                     "price": product.price,
-                    "priceCurrency": "CNY",
+                    "priceCurrency": "USD",
                     "itemCondition": `https://schema.org/${product.condition}`,
                     "availability": "https://schema.org/InStock"
                 }
@@ -198,60 +222,90 @@ function switchLanguage(lang) {
     // 更新界面文本
     updateUIText();
     
-    // 重新渲染表格
+    // 重新渲染表格以更新"查看详情"按钮文本
     renderTable();
 }
 
 // 更新界面文本
 function updateUIText() {
-    const t = translations[currentLang];
-    
     // 更新标题
-    document.querySelector('h1').textContent = t.title;
+    document.querySelector('h1').textContent = translations[currentLang].title;
     
     // 更新筛选器
-    typeFilter.querySelector('option[value=""]').textContent = t.filters.allTypes;
-    capacityFilter.querySelector('option[value=""]').textContent = t.filters.allCapacities;
+    if (currentLang === 'zh') {
+        typeFilter.innerHTML = `
+            <option value="">所有类型</option>
+            <option value="Tape">磁带</option>
+            <option value="LTO-9">LTO-9</option>
+            <option value="LTO-8">LTO-8</option>
+            <option value="LTO-6">LTO-6</option>
+        `;
+        
+        capacityFilter.innerHTML = `
+            <option value="">所有容量</option>
+            <option value="18 TB">18 TB</option>
+            <option value="12 TB">12 TB</option>
+            <option value="2.5 TB">2.5 TB</option>
+            <option value="1.4 GB">1.4 GB</option>
+            <option value="1 GB">1 GB</option>
+            <option value="650 MB">650 MB</option>
+        `;
+        
+        sortBy.innerHTML = `
+            <option value="price-asc">价格 (低 → 高)</option>
+            <option value="price-desc">价格 (高 → 低)</option>
+            <option value="pricePerTB-asc">每TB价格 (低 → 高)</option>
+            <option value="pricePerTB-desc">每TB价格 (高 → 低)</option>
+            <option value="capacity-asc">容量 (低 → 高)</option>
+            <option value="capacity-desc">容量 (高 → 低)</option>
+        `;
+    } else {
+        typeFilter.innerHTML = `
+            <option value="">All Types</option>
+            <option value="Tape">Tape</option>
+            <option value="LTO-9">LTO-9</option>
+            <option value="LTO-8">LTO-8</option>
+            <option value="LTO-6">LTO-6</option>
+        `;
+        
+        capacityFilter.innerHTML = `
+            <option value="">All Capacities</option>
+            <option value="18 TB">18 TB</option>
+            <option value="12 TB">12 TB</option>
+            <option value="2.5 TB">2.5 TB</option>
+            <option value="1.4 GB">1.4 GB</option>
+            <option value="1 GB">1 GB</option>
+            <option value="650 MB">650 MB</option>
+        `;
+        
+        sortBy.innerHTML = `
+            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-desc">Price (High to Low)</option>
+            <option value="pricePerTB-asc">Price per TB (Low to High)</option>
+            <option value="pricePerTB-desc">Price per TB (High to Low)</option>
+            <option value="capacity-asc">Capacity (Low to High)</option>
+            <option value="capacity-desc">Capacity (High to Low)</option>
+        `;
+    }
     
-    // 更新类型选项
-    typeFilter.querySelector('option[value="SSD"]').textContent = t.types.SSD;
-    typeFilter.querySelector('option[value="HDD"]').textContent = t.types.HDD;
-    
-    // 更新容量选项
-    Object.entries(t.capacities).forEach(([value, text]) => {
-        const option = capacityFilter.querySelector(`option[value="${value}"]`);
-        if (option) option.textContent = text;
+    // 更新表头
+    tableHeaders.forEach((header, index) => {
+        const columns = ['productName', 'pricePerTB', 'price', 'capacity', 'warranty', 'formFactor', 'technology', 'condition'];
+        if (index < columns.length) {
+            header.textContent = translations[currentLang].table[columns[index]];
+        }
     });
-    
-    // 更新排序选项
-    sortBy.querySelector('option[value="price-asc"]').textContent = t.sort.priceAsc;
-    sortBy.querySelector('option[value="price-desc"]').textContent = t.sort.priceDesc;
-    sortBy.querySelector('option[value="pricePerTB-asc"]').textContent = t.sort.pricePerTBAsc;
-    sortBy.querySelector('option[value="pricePerTB-desc"]').textContent = t.sort.pricePerTBDesc;
-    sortBy.querySelector('option[value="capacity-asc"]').textContent = t.sort.capacityAsc;
-    sortBy.querySelector('option[value="capacity-desc"]').textContent = t.sort.capacityDesc;
-    
-    // 更新表格标题
-    const headers = document.querySelectorAll('#priceTable th');
-    headers[0].textContent = t.table.productName;
-    headers[1].textContent = t.table.pricePerTB;
-    headers[2].textContent = t.table.price;
-    headers[3].textContent = t.table.capacity;
-    headers[4].textContent = t.table.warranty;
-    headers[5].textContent = t.table.formFactor;
-    headers[6].textContent = t.table.technology;
-    headers[7].textContent = t.table.condition;
-    headers[8].textContent = t.table.action;
 }
 
-// 过滤产品
+// 筛选产品
 function filterProducts() {
-    const type = typeFilter.value;
-    const capacity = capacityFilter.value;
+    const selectedType = typeFilter.value;
+    const selectedCapacity = capacityFilter.value;
     
-    filteredProducts = products.products.filter(product => {
-        const typeMatch = !type || product.type === type;
-        const capacityMatch = !capacity || product.capacity === parseInt(capacity);
+    filteredProducts = products.filter(product => {
+        const typeMatch = !selectedType || 
+            (selectedType === 'Tape' ? product.formFactor === 'Tape' : product.technology === selectedType);
+        const capacityMatch = !selectedCapacity || product.capacity === selectedCapacity;
         return typeMatch && capacityMatch;
     });
     
@@ -260,60 +314,28 @@ function filterProducts() {
 
 // 排序产品
 function sortProducts() {
+    const { column, direction } = currentSort;
+    
     filteredProducts.sort((a, b) => {
-        let aValue = a[currentSort.column];
-        let bValue = b[currentSort.column];
-
-        // 特殊处理字符串类型的比较
-        if (typeof aValue === 'string') {
-            aValue = aValue.toLowerCase();
-            bValue = bValue.toLowerCase();
+        let comparison = 0;
+        
+        switch (column) {
+            case 'price':
+            case 'pricePerTB':
+                comparison = a[column] - b[column];
+                break;
+            case 'capacity':
+                comparison = parseFloat(a.capacity) - parseFloat(b.capacity);
+                break;
+            default:
+                comparison = String(a[column]).localeCompare(String(b[column]));
         }
-
-        if (aValue < bValue) return currentSort.direction === 'asc' ? -1 : 1;
-        if (aValue > bValue) return currentSort.direction === 'asc' ? 1 : -1;
-        return 0;
+        
+        return direction === 'asc' ? comparison : -comparison;
     });
     
     renderTable();
 }
 
-// 渲染表格
-function renderTable() {
-    const t = translations[currentLang];
-    priceTableBody.innerHTML = '';
-    
-    filteredProducts.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.title}</td>
-            <td class="price">${formatPrice(product.pricePerTB)}</td>
-            <td class="price">${formatPrice(product.price)}</td>
-            <td>${formatCapacity(product.capacity)}</td>
-            <td>${product.warranty}</td>
-            <td>${product.formFactor}</td>
-            <td>${product.technology}</td>
-            <td>${product.condition}</td>
-            <td>
-                <a href="${product.url}" target="_blank" class="btn">${t.table.viewDetails}</a>
-            </td>
-        `;
-        priceTableBody.appendChild(row);
-    });
-}
-
-// 格式化容量
-function formatCapacity(capacity) {
-    if (capacity >= 1000) {
-        return `${capacity/1000}TB`;
-    }
-    return `${capacity}GB`;
-}
-
-// 格式化价格
-function formatPrice(price) {
-    return `¥${price.toFixed(2)}`;
-}
-
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', init); 
+// 初始化应用
+init(); 
