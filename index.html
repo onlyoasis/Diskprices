@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Compare prices of storage devices including LTO tapes, hard drives, and SSDs. Find the best deals on storage solutions with price per TB comparison. Updated daily with the latest prices.">
+    <meta name="keywords" content="storage devices, LTO tapes, hard drives, SSDs, price comparison, storage prices, LTO-9, LTO-8, LTO-6, price per TB, storage deals, computer storage, disk prices">
+    <meta name="author" content="DiskPrices">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Storage Device Price Comparison - Compare LTO Tapes & Storage Prices">
+    <meta property="og:description" content="Compare prices of storage devices including LTO tapes, hard drives, and SSDs. Find the best deals on storage solutions with price per TB comparison.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://diskprices.shop">
+    <meta property="og:site_name" content="DiskPrices">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://diskprices.shop">
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RRPWPGTYVK"></script>
     <script>
@@ -12,7 +26,7 @@
 
         gtag('config', 'G-RRPWPGTYVK');
     </script>
-    <title>Storage Device Price Comparison</title>
+    <title>Storage Device Price Comparison - Compare LTO Tapes & Storage Prices</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -26,6 +40,7 @@
         </header>
 
         <div class="filters">
+            <h2 class="visually-hidden">Filter Options</h2>
             <select id="typeFilter" aria-label="Filter by type">
                 <option value="">All Types</option>
                 <option value="Tape">Tape</option>
@@ -53,17 +68,18 @@
         </div>
 
         <div class="table-container">
+            <h2 class="visually-hidden">Price Comparison Table</h2>
             <table id="priceTable">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Price per TB</th>
-                        <th>Price</th>
-                        <th>Capacity</th>
-                        <th>Warranty</th>
-                        <th>Form Factor</th>
-                        <th>Technology</th>
-                        <th>Condition</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price per TB</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Capacity</th>
+                        <th scope="col">Warranty</th>
+                        <th scope="col">Form Factor</th>
+                        <th scope="col">Technology</th>
+                        <th scope="col">Condition</th>
                     </tr>
                 </thead>
                 <tbody id="priceTableBody"></tbody>
@@ -71,6 +87,7 @@
         </div>
 
         <footer>
+            <h2 class="visually-hidden">Footer Information</h2>
             <p>Last updated: <span id="lastUpdate"></span></p>
             <p>Prices and availability are subject to change. All prices include applicable taxes.</p>
         </footer>
