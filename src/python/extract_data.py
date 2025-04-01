@@ -105,9 +105,9 @@ def extract_data():
     }
     
     # 保存JSON文件到正确的位置
-    with open('data/products.json', 'w', encoding='utf-8') as f:
+    with open('src/frontend/data/products.json', 'w', encoding='utf-8') as f:
         json.dump(json_data, f, ensure_ascii=False, indent=2)
-    print(f"数据已保存到 data/products.json，共提取 {len(products)} 条记录")
+    print(f"数据已保存到 src/frontend/data/products.json，共提取 {len(products)} 条记录")
 
 if __name__ == "__main__":
     extract_data() 
